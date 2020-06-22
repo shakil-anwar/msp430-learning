@@ -51,7 +51,7 @@ UCBxI2CSA= 0xADDRESS; 7 bit or 10 bit address. other bits are ignored.
 ```
 
 ## I2C Master Transmitter Mode
-UCTR must be set to configure transmitter and Set UCTXSTT to generate a START condition. (then bus availability is checked)
+After the initialization of registers for Master Mode UCTR must be set to configure transmitter and Set UCTXSTT to generate a START condition. (then bus availability is checked)
 ```
 UCB0CTL1 |= UCTR + UCTXSTT; 
 ```
@@ -82,6 +82,36 @@ Setting UCTXSTP will generate a STOP condition after the next acknowledge from t
 If the slave does not acknowledge the transmitted data the not-acknowledge interrupt flag UCNACKIFG is set. Then the master must react with either a STOP condition or a repeated START condition.
 
 ## I2C Master Receiver Mode
+After the initialization of registers for Master Mode UCTR must be reset to configure transmitter and Set UCTXSTT to generate a START condition. (then bus availability is checked)
+```
+UCB0CTL1 &= ~UCTR ;                     // Clear UCTR
+UCB0CTL1 |= UCTXSTT;                    // I2C start condition
+```
+Then check start condition is sent properly or not
+```
+while (UCB0CTL1 & UCTXSTT);             // Start condition sent?
+```
+If only one byte is received then stop bit mast be set immediately.Setting the UCTXSTP bit will generate a STOP condition. After setting UCTXSTP, a NACK followed by a
+STOP condition is generated after reception of the data from the slave, or immediately if the USCI module
+is currently waiting for UCBxRXBUF to be read.
+```
+UCB0CTL1 |= UCTXSTP;                    // I2C stop condition
+```
+As soon as the slave acknowledges the address the UCTXSTT bit is cleared.
+After the acknowledge of the address from the slave the first data byte from the slave is received and
+acknowledged and the UCB0RXIFG flag is set. then it kicks USCIAB0RX_VECTOR and USCIAB0RX_ISR is called. and slave data is saved
+```
+#pragma vector = USCIAB0RX_VECTOR
+__interrupt void USCIAB0RX_ISR(void)
+{
+  if(Rx == 1){                              // Master Receieve
+      PRxData = UCB0RXBUF;                       // Get RX data
+      __bic_SR_register_on_exit(CPUOFF);        // Exit LPM0
+  }
+}
+```
+Then STOP condition is sent.
+
 
 
 
