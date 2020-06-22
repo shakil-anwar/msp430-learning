@@ -105,12 +105,12 @@ acknowledged and the UCB0RXIFG flag is set. then it kicks USCIAB0RX_VECTOR and U
 __interrupt void USCIAB0RX_ISR(void)
 {
   if(Rx == 1){                              // Master Receieve
-      PRxData = UCB0RXBUF;                       // Get RX data
+      RxData = UCB0RXBUF;                       // Get RX data
       __bic_SR_register_on_exit(CPUOFF);        // Exit LPM0
   }
 }
 ```
-Then STOP condition is sent.
+Then STOP condition is sent. Data receieve in  RxData variable(decaleded in globally).
 
 
 
