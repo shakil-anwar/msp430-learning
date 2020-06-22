@@ -1,6 +1,6 @@
 # Initializing or Reconfiguring the USCI I2C Function in msp430f2232
 ## The recommended USCI initialization or reconfiguration process is:
-1. Set UCSWRST  in register UCB0CTL1 			//setting software reset
+1. Set UCSWRST  in register UCB0CTL1 			      //setting software reset
 2. Initialize all USCI registers with UCSWRST=1 (including UCxCTL1) and configure ports.
 3. Configure ports.
 4. Clear UCSWRST via software (BIC.B #UCSWRST,&UCxCTL1)
