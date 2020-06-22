@@ -1,18 +1,18 @@
-## Initializing or Reconfiguring the USCI I2C Function in msp430f2232
-###### The recommended USCI initialization or reconfiguration process is:
+# Initializing or Reconfiguring the USCI I2C Function in msp430f2232
+## The recommended USCI initialization or reconfiguration process is:
 1. Set UCSWRST  in register UCB0CTL1 			//setting software reset
 2. Initialize all USCI registers with UCSWRST=1 (including UCxCTL1) and configure ports.
 3. Configure ports.
 4. Clear UCSWRST via software (BIC.B #UCSWRST,&UCxCTL1)
 5. Enable interrupts (optional) via UCxRXIE and/or UCxTXIE
-###### Master Mode
+## Master Mode
 The USCI module is configured as an I2C master by selecting the I2C mode with UCMODEx = 11 and
 UCSYNC = 1 and setting the UCMST bit. When the master is part of a multi-master system, UCMM must
 be set and its own address must be programmed into the UCBxI2COA register. When UCA10 = 0, 7-bit
 addressing is selected. When UCA10 = 1, 10-bit addressing is selected. The UCGCEN bit selects if the
 USCI module responds to a general call. UCTR may be set or cleared to configure transmitter or receiver,
 
-###### I2C Master Transmitter Mode
+## I2C Master Transmitter Mode
 
 Set slave address to UCBxI2CSA register.
 Set UCSLA10 bit = 0 if address is 7 bit or UCSLA10 =0
