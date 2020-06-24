@@ -96,4 +96,3 @@ void I2C_receive_master(void){
         __bis_SR_register(CPUOFF + GIE);        // Enter LPM0 w/ interrupts
 }
 
-
