@@ -110,4 +110,4 @@ __interrupt void USCIAB0RX_ISR(void)
   }
 }
 ```
-Then STOP condition is sent. Data is receieved in  RxData variable(decaleded in globally).
+Then STOP condition is sent. Data is receieved in  RxData variable(decaleded in globally)
