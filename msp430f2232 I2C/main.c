@@ -3,7 +3,8 @@
 char i2c_slaveAddress = 0x68;
 int TXByteCtr;
 unsigned char PRxData;
-int Rx = 0;
+unsigned int Count;
+int Rx = 8;		// we need to read 7 bytes from RTC then we will reset it.
 char I2C_data_to_send = 0x00;
 
 void initiate_I2C_master(char);
@@ -28,11 +29,15 @@ int main(void)
 	    {
 	    	//Transmit process
 	    	//Rx = 0;
-	    	//TXByteCtr = 1;
-	    	//I2C_transmit_master();
+	    	if(Rx == 8)			// we need to read 7 bytes from RTC then we will reset it.
+	    	{
+	    		TXByteCtr = 1;
+	    		I2C_transmit_master();
+	    		Rx=1;
+	    	}
 	    	//Receive process
-	    	Rx = 1;
 	    	I2C_receive_master();
+
 	    	pinState = P1IN & BIT3;
 	    	while(pinState == 0){
 	    		pinState = P1IN & BIT3;
@@ -49,8 +54,9 @@ __interrupt void USCIAB0RX_ISR(void)
     if(Rx)
     {                              			 	  // Master Receieve
         PRxData = UCB0RXBUF;                      // Get RX data
+        Rx++;
         __bic_SR_register_on_exit(CPUOFF);        // Exit LPM0
-        Rx--;
+
     }
 }
 
@@ -95,5 +101,3 @@ void I2C_receive_master(void){
         UCB0CTL1 |= UCTXSTP;                    // I2C stop condition
         __bis_SR_register(CPUOFF + GIE);        // Enter LPM0 w/ interrupts
 }
-
-
