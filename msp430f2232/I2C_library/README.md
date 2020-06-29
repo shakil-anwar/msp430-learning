@@ -16,3 +16,8 @@ void initiate_I2C_master(char slaveAddress, uint8_t sync_clock_speed);
 ````
 void I2C_transmit_master(int TXByteCounter, char *I2C_dataToSend);	
 ````
+#### [Function 2] takes no input and has an output of type (unsigned char). It read one byte data at a time and returns at output.
+
+````
+unsigned char I2C_receive_master(void);
+````
