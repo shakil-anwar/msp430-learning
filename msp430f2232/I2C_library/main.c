@@ -12,7 +12,7 @@ int main(void)
 {
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	P1DIR |= 0xFF;
-	initiate_I2C_master(i2c_slaveAddress, 20); 	//intialization of I2C
+	initiate_I2C_master(i2c_slaveAddress, 20); 	//intialization of I2C with slave address and baud rate
 
 	P3DIR &= ~BIT3;             ///Set P2.3 as button input
 	P3REN |= BIT3;              ///Enable Resistor
