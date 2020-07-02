@@ -22,7 +22,7 @@ typedef struct rtcds1307 {
     */
 } RTCds1307;
 ````
- In this stuct two function is used by pointer function and has 6 parameter to read data.
+ In this struct two function is used by pointer function and has 6 parameter to read data.
  Stucture must be defined as global
  ````
  RTCds1307 [defined_name]
