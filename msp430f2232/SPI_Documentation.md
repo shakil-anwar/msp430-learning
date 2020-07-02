@@ -34,7 +34,7 @@ UCB0CTL1 &= ~UCSWRST;
 ## Initialization of registers for Master Mode Transmission
 After the initialization of registers for Master Mode Slave device must be selected by by active low.
 ````
-P3OUT  &= ~BIT4;									// Select Device
+P3OUT  &= ~BIT4;									         // Select Device
 ````
 to start writing data to UCB0TXBUF check UCB0TXIFG flag if it is set of not.
 ```
@@ -42,7 +42,7 @@ while(!(IFG2 & UCB0TXIFG));							// checking if TX_Buffer is ready to write
 ```
 when flag is set data can be set to UCB0TXBUF
 ````
-UCB0TXBUF = *txBuffer;								// writing value to TX Buffer
+UCB0TXBUF = *txBuffer;								    // writing value to TX Buffer
 ````
 As soon as data is set. device will move the data to shift register and start transmission. As transmission and Receive is concurrent in SPI mode,
 We will wait for data byte written to UCB0RXBUF by checking UCB0RXIFG flag set or not.
@@ -51,11 +51,11 @@ while(!(IFG2 & UCB0RXIFG));							// checking if RX_Buffer is ready to read
 ````
 when data is read from UCB0RXBUF, UCB0RXIFG flag will auto matically be cleared.
 ````
-*rxBuffer = UCB0RXBUF; 								// reading value from RX Buffer
+*rxBuffer = UCB0RXBUF; 								   // reading value from RX Buffer
 ````
 Then after a complete byte transmit and receive in SPI mode, slave device is deselected.
 ````
-P3OUT  |= BIT4;										// Unselect Device
+P3OUT  |= BIT4;										         // Unselect Device
 ````
 
 SPI communication STOPs when device is unselected.
