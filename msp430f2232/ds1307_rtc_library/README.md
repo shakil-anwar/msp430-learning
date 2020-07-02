@@ -1,4 +1,9 @@
 # RTClib for MSP430F2232
+RTC based on the DS1307 chip connected via I2C. 
+Include "RTClib_ds1307.h" at your code along with I2C library.
+````
+#include "RTClib_ds1307.h"
+````
 ## Compatibility
 This library is compatible only with 
 * **ds1307 module**
