@@ -40,16 +40,14 @@ void I2C_transmit_master(int TXByteCounter, char *I2C_dataToSend){
     __bis_SR_register(CPUOFF + GIE);        			// Enter LPM0 w/ interrupts
 }
 
-unsigned char I2C_receive_master(int TXByteCounter, char *I2C_dataToReceive){
+void I2C_receive_master(int TXByteCounter, char *I2C_dataToReceive){
 	TXByteCtr = TXByteCounter;
 	PRxData = I2C_dataToReceive;
 	while (UCB0CTL1 & UCTXSTP);             // Ensure stop condition got sent
 	UCB0CTL1 &= ~UCTR ;                     // Clear UCTR
 	UCB0CTL1 |= UCTXSTT;                    // I2C start condition
-	while (UCB0CTL1 & UCTXSTT);             // Start condition sent?
-	UCB0CTL1 |= UCTXSTP;                    // I2C stop condition
+	while (UCB0CTL1 & UCTXSTT);             // Start condition sent
 	__bis_SR_register(CPUOFF + GIE);        // Enter LPM0 w/ interrupts
-	return PRxData;
 }
 
 #pragma vector = USCIAB0RX_VECTOR
@@ -63,11 +61,10 @@ __interrupt void USCIAB0RX_ISR(void)
 		  if( TXByteCtr == 1){
 			  UCB0CTL1 |= UCTXSTP;                  // I2C stop condition
 		  }
+      }else
+      {
+		__bic_SR_register_on_exit(CPUOFF);      	// Exit LPM0
       }
-	  else
-	  {
-		  __bic_SR_register_on_exit(CPUOFF);      	// Exit LPM0
-	   }
 }
 
 #pragma vector = USCIAB0TX_VECTOR
