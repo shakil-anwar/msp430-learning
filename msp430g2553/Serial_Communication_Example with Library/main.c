@@ -1,3 +1,13 @@
+/*
+ * UART/ Serial Communication Example
+ *
+ *  Created on: July 14,2020
+ *      Author: Shakil Anwar
+ *
+ *  This code sends a successful String after getting 'a' each time in serail command 
+ *  Default Baud rate is set as 9600bps
+ */
+
 #include "msp430g2553.h"
 #include "UARTA0.h"
 
@@ -29,7 +39,7 @@ void main(void)
        {
            if(Serial.read() == 'a')
            {
-               Serial.println("Finally Done");
+               Serial.println("You have sent a letter successfully");
                pinState = P1IN & BIT3;
                while(pinState == 0){
                    pinState = P1IN & BIT3;
@@ -38,7 +48,4 @@ void main(void)
            }
        }
    }
-
-
 }
-
