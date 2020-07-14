@@ -22,9 +22,6 @@ void main(void)
   P1OUT |= BIT3;                      ///Pull up button
 
   Serial_begin();
-  volatile unsigned int pinState;
-
-
   //---------------- Configuring the LED's ----------------------//
 
    P1DIR  |=  BIT0 + BIT6;  // P1.0 and P1.6 output
@@ -33,18 +30,11 @@ void main(void)
 
    while(1)
    {
-       pinState = P1IN & BIT3;
-//       if(pinState == 0)
        if(Serial.available())
        {
            if(Serial.read() == 'a')
            {
                Serial.println("You have sent a letter successfully");
-               pinState = P1IN & BIT3;
-               while(pinState == 0){
-                   pinState = P1IN & BIT3;
-               }
-               __delay_cycles(5000);
            }
        }
    }
