@@ -3,7 +3,7 @@
 ## Funchtions
 This library has 5 functions.
 ````
-Serial.begin();
+Serial_begin();
 ````
 this functions initiates serial communication protocol by setting all register with 9600 baud rate.
 
