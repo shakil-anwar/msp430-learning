@@ -1,5 +1,5 @@
 # Configuration for compatibility with nRF24XX
-this guide is for data transmission without auto acknowledgement (copied from NFR24lxx datasheet)[https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf]
+this guide is for data transmission without auto acknowledgement ( [copied from NFR24lxx datasheet](https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf) )
 
 ## How to setup nRF24L01 to receive from an nRF2401/nRF2402/nRF24E1/nRF24E2:
 * Use same CRC configuration as the nRF2401/nRF2402/nRF24E1/nRF24E2
