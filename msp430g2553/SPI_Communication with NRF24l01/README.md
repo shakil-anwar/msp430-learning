@@ -2,9 +2,9 @@
 this guide is for data transmission without auto acknowledgement (copied from NFR24lxx datasheet)
 
 ## How to setup nRF24L01 to receive from an nRF2401/nRF2402/nRF24E1/nRF24E2:
-• Use same CRC configuration as the nRF2401/nRF2402/nRF24E1/nRF24E2
+* Use same CRC configuration as the nRF2401/nRF2402/nRF24E1/nRF24E2
 uses
-• Set the PRIM_RX bit to 1
+* Set the PRIM_RX bit to 1
 • Disable auto acknowledgement on the data pipe that will be addressed
 • Use the same address width as the PTX device
 • Use the same frequency channel as the PTX device
